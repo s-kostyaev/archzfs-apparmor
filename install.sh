@@ -24,7 +24,6 @@ cd archzfs/
 patch -p1 -i apparmor.patch
 ./edit-for-apparmor.sh 
 echo "done"
-<<<<<<< HEAD
 cd spl-utils-git
 echo "Creating spl-utils-git package..."
 makepkg --asroot
@@ -33,28 +32,11 @@ echo "Installing zfs-utils-git package..."
 pacman -U spl-utils-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../zfs-utils-git
-=======
-cd zfs-utils-git
->>>>>>> c3a162585ce31ddaabb49a37d601ee80eb718ff8
 echo "Creating zfs-utils-git package..."
 makepkg --asroot
 echo "done"
 echo "Installing zfs-utils-git package..."
 pacman -U zfs-utils-git-*x86_64.pkg.tar.xz
-echo "done"
-cd ../spl-git
-echo "Creating spl-git package..."
-makepkg --asroot
-echo "done"
-echo "Installing spl-git..."
-pacman -U spl-git-*x86_64.pkg.tar.xz
-echo "done"
-cd ../zfs-git
-echo "Creating zfs-git package..."
-makepkg --asroot
-echo "done"
-echo "Installing zfs-git..."
-pacman -U zfs-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../spl-git
 echo "Creating spl-git package..."
