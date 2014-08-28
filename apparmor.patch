@@ -1,0 +1,99 @@
+diff --git a/spl-git/PKGBUILD b/spl-git/PKGBUILD
+index ec9d372..6c806d1 100644
+--- a/spl-git/PKGBUILD
++++ b/spl-git/PKGBUILD
+@@ -29,8 +29,8 @@ else
+ fi
+ 
+ pkgdesc="Solaris Porting Layer kernel modules."
+-depends=("spl-utils-git" "linux=${_kernel_version}")
+-makedepends=("git" "linux-headers=${_kernel_version}")
++depends=("spl-utils-git" "linux-apparmor=${_kernel_version}")
++makedepends=("git" "linux-apparmor-headers=${_kernel_version}")
+ arch=("i686" "x86_64")
+ url="http://zfsonlinux.org/"
+ source=("git+https://github.com/zfsonlinux/spl.git#commit=31cb5383")
+@@ -51,7 +51,7 @@ build() {
+     ./configure --prefix=/usr \
+                 --libdir=/usr/lib \
+                 --sbindir=/usr/bin \
+-                --with-linux=/usr/lib/modules/${_kernel_version_full}-ARCH/build \
++                --with-linux=/usr/lib/modules/${_kernel_version_full}/build \
+                 --with-config=kernel \
+                 ${_at_enable}
+ 
+@@ -63,5 +63,5 @@ package() {
+     make DESTDIR="${pkgdir}" install
+ 
+     mv "${pkgdir}/lib" "${pkgdir}/usr/"
+-    sed -i "s+${srcdir}++" ${pkgdir}/usr/src/spl-*/${_kernel_version_full}-ARCH/Module.symvers
++    sed -i "s+${srcdir}++" ${pkgdir}/usr/src/spl-*/${_kernel_version_full}/Module.symvers
+ }
+diff --git a/zfs-git/PKGBUILD b/zfs-git/PKGBUILD
+index 99053e4..52a0402 100644
+--- a/zfs-git/PKGBUILD
++++ b/zfs-git/PKGBUILD
+@@ -29,8 +29,8 @@ else
+ fi
+ 
+ pkgdesc="Kernel modules for the Zettabyte File System."
+-depends=("spl-git" "zfs-utils-git" "linux=${_kernel_version}")
+-makedepends=("git" "linux-headers=${_kernel_version}")
++depends=("spl-git" "zfs-utils-git" "linux-apparmor=${_kernel_version}")
++makedepends=("git" "linux-apparmor-headers=${_kernel_version}")
+ arch=("i686" "x86_64")
+ url="http://zfsonlinux.org/"
+ source=("git+https://github.com/zfsonlinux/zfs.git#commit=07dabd23")
+@@ -54,7 +54,7 @@ build() {
+                 --with-udevdir=/lib/udev \
+                 --libexecdir=/usr/lib/zfs \
+                 --with-config=kernel \
+-                --with-linux=/usr/lib/modules/${_kernel_version_full}-ARCH/build
++                --with-linux=/usr/lib/modules/${_kernel_version_full}/build
+ 
+     make
+ }
+@@ -66,5 +66,5 @@ package() {
+     cp -r "$pkgdir"/{lib,usr}
+     rm -r "$pkgdir"/lib
+ 
+-    sed -i "s+${srcdir}++" ${pkgdir}/usr/src/zfs-*/${_kernel_version_full}-ARCH/Module.symvers
++    sed -i "s+${srcdir}++" ${pkgdir}/usr/src/zfs-*/${_kernel_version_full}/Module.symvers
+ }
+diff --git a/zfs-git/zfs.install b/zfs-git/zfs.install
+index 3edfd6c..69bc5dd 100644
+--- a/zfs-git/zfs.install
++++ b/zfs-git/zfs.install
+@@ -28,7 +28,7 @@ check_initramfs() {
+             echo '>>> "hooks" list and then regenerate the initial ramdisk.'
+         else
+             echo ">>> Generating initial ramdisk, using mkinitcpio. Please wait..."
+-            mkinitcpio -p linux
++            mkinitcpio -p linux-apparmor
+         fi
+     fi
+ }
+diff --git a/spl-git/spl.install b/spl-git/spl.install
+index f71315e..2204c20 100644
+--- a/spl-git/spl.install
++++ b/spl-git/spl.install
+@@ -33,5 +33,5 @@ run_depmod() {
+ 
+     [[ $CARCH == "i686" ]] && _kernel_version_full=${_kernel_version_x32_full} || _kernel_version_full=${_kernel_version_x64_full}
+ 
+-    depmod ${_kernel_version_full}-ARCH
++    depmod ${_kernel_version_full}
+ }
+diff --git a/zfs-git/zfs.install b/zfs-git/zfs.install
+index ebe228d..63a6070 100644
+--- a/zfs-git/zfs.install
++++ b/zfs-git/zfs.install
+@@ -18,7 +18,7 @@ check_initramfs() {
+ 
+     [[ $CARCH == "i686" ]] && _kernel_version_full=${_kernel_version_x32_full} || _kernel_version_full=${_kernel_version_x64_full}
+ 
+-    depmod ${_kernel_version_full}-ARCH
++    depmod ${_kernel_version_full}
+ 
+     MK_CONF=$(grep -v '#' /etc/mkinitcpio.conf | grep zfs >/dev/null; echo $?);
+     if [[ $MK_CONF == '0' ]]; then
