@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "Updating linux package..."
+pacman -S linux
+echo "done"
 echo "Clonning kernel repo..."
 git clone https://github.com/seletskiy/arch-apparmor.git
 echo "done"
