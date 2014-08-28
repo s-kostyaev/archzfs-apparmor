@@ -55,5 +55,5 @@ echo "done"
 cd ../..
 echo "Collecting packages"
 mkdir pkg
-cp `find -iname "*pkg.tar.xz" .` pkg
+cp `find -iname "*pkg.tar.xz"` -t pkg
 echo "done"
