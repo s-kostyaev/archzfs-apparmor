@@ -69,6 +69,6 @@ pacman -U zfs-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../..
 echo "Collecting packages"
-mkdir pkg
-cp `find -iname "*pkg.tar.xz"` -t pkg
+mkdir $CURDIR/pkg
+cp `find -iname "*pkg.tar.xz"` -t $CURDIR/pkg
 echo "done"
