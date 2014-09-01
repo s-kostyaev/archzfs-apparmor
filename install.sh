@@ -22,7 +22,7 @@ git clone https://github.com/seletskiy/arch-apparmor.git
 echo "done"
 cd arch-apparmor/linux-apparmor
 echo "Creating kernel package..."
-makepkg --asroot
+makepkg --asroot -s 
 echo "done"
 echo "Installing kernel..."
 pacman -U linux-apparmor-*-x86_64.pkg.tar.xz
@@ -41,28 +41,28 @@ patch -p1 -i apparmor.patch
 echo "done"
 cd spl-utils-git
 echo "Creating spl-utils-git package..."
-makepkg --asroot
+makepkg --asroot -s
 echo "done"
 echo "Installing zfs-utils-git package..."
 pacman -U spl-utils-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../spl-git
 echo "Creating spl-git package..."
-makepkg --asroot
+makepkg --asroot -s
 echo "done"
 echo "Installing spl-git..."
 pacman -U spl-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../zfs-utils-git
 echo "Creating zfs-utils-git package..."
-makepkg --asroot
+makepkg --asroot -s
 echo "done"
 echo "Installing zfs-utils-git package..."
 pacman -U zfs-utils-git-*x86_64.pkg.tar.xz
 echo "done"
 cd ../zfs-git
 echo "Creating zfs-git package..."
-makepkg --asroot
+makepkg --asroot -s
 echo "done"
 echo "Installing zfs-git..."
 pacman -U zfs-git-*x86_64.pkg.tar.xz
