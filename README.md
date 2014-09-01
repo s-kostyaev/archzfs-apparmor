@@ -10,7 +10,10 @@ Only for x86_64
 How to use this Repository
 --------------------------
 
-Just run install.sh
+Just run install.sh [WORKDIR]. For example
+   
+    cd archzfs-apparmor
+    ./install.sh /tmp
 
 
 --------------------------

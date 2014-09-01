@@ -1,4 +1,19 @@
 #!/bin/sh
+CURDIR=`pwd`
+echo $CURDIR
+if [ $# -eq 0 ]
+then 
+ echo "Usage:"
+ echo "    install.sh [WORKDIR]"
+ exit 1
+fi
+if [ -d $1 ]
+then 
+ cd $1
+else
+ mkdir -p $1
+ cd $1
+fi
 echo "Updating linux package..."
 pacman -S linux
 echo "done"
@@ -18,8 +33,8 @@ echo "Clonning zfs repo..."
 git clone https://github.com/demizer/archzfs.git
 echo "done"
 echo "Patching archzfs for apparmor..."
-cp apparmor.patch archzfs/
-cp edit-for-apparmor.sh archzfs/
+cp $CURDIR/apparmor.patch archzfs/
+cp $CURDIR/edit-for-apparmor.sh archzfs/
 cd archzfs/
 patch -p1 -i apparmor.patch
 ./edit-for-apparmor.sh 
