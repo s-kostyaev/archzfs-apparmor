@@ -15,7 +15,7 @@ else
  cd $1
 fi
 echo "Updating linux package..."
-pacman -S linux
+pacman -S linux --noconfirm
 echo "done"
 echo "Clonning kernel repo..."
 git clone https://github.com/seletskiy/arch-apparmor.git
@@ -25,8 +25,8 @@ echo "Creating kernel package..."
 makepkg --asroot -s 
 echo "done"
 echo "Installing kernel..."
-pacman -U linux-apparmor-*-x86_64.pkg.tar.xz
-pacman -U linux-apparmor-headers-*-x86_64.pkg.tar.xz
+pacman -U linux-apparmor-*-x86_64.pkg.tar.xz --noconfirm
+pacman -U linux-apparmor-headers-*-x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../..
 echo "Clonning zfs repo..."
@@ -44,28 +44,28 @@ echo "Creating spl-utils-git package..."
 makepkg --asroot -s
 echo "done"
 echo "Installing zfs-utils-git package..."
-pacman -U spl-utils-git-*x86_64.pkg.tar.xz
+pacman -U spl-utils-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../spl-git
 echo "Creating spl-git package..."
 makepkg --asroot -s
 echo "done"
 echo "Installing spl-git..."
-pacman -U spl-git-*x86_64.pkg.tar.xz
+pacman -U spl-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../zfs-utils-git
 echo "Creating zfs-utils-git package..."
 makepkg --asroot -s
 echo "done"
 echo "Installing zfs-utils-git package..."
-pacman -U zfs-utils-git-*x86_64.pkg.tar.xz
+pacman -U zfs-utils-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../zfs-git
 echo "Creating zfs-git package..."
 makepkg --asroot -s
 echo "done"
 echo "Installing zfs-git..."
-pacman -U zfs-git-*x86_64.pkg.tar.xz
+pacman -U zfs-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../..
 echo "Collecting packages"
