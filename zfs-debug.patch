@@ -1,0 +1,13 @@
+diff --git a/zfs-git/PKGBUILD b/zfs-git/PKGBUILD
+index 52a0402..deef986 100644
+--- a/zfs-git/PKGBUILD
++++ b/zfs-git/PKGBUILD
+@@ -54,6 +54,8 @@ build() {
+                 --with-udevdir=/lib/udev \
+                 --libexecdir=/usr/lib/zfs \
+                 --with-config=kernel \
++               --enable-debug \
++                --enable-debug-dmu-tx \
+                 --with-linux=/usr/lib/modules/${_kernel_version_full}/build
+ 
+     make

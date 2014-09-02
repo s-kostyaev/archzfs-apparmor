@@ -34,9 +34,11 @@ git clone https://github.com/demizer/archzfs.git
 echo "done"
 echo "Patching archzfs for apparmor..."
 cp $CURDIR/apparmor.patch archzfs/
+cp $CURDIR/zfs-debug.patch archzfs/
 cp $CURDIR/edit-for-apparmor.sh archzfs/
 cd archzfs/
-patch -p1 -i apparmor.patch
+patch -Np1 -i apparmor.patch
+patch -Np1 -i zfs-debug.patch
 ./edit-for-apparmor.sh 
 echo "done"
 cd spl-utils-git
