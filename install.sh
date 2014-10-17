@@ -22,7 +22,7 @@ git clone https://github.com/seletskiy/arch-apparmor.git
 echo "done"
 cd arch-apparmor/linux-apparmor
 echo "Creating kernel package..."
-makepkg --asroot -s 
+makepkg --skipinteg --asroot -s 
 echo "done"
 echo "Installing kernel..."
 pacman -Ud linux-apparmor-*-x86_64.pkg.tar.xz --noconfirm
@@ -38,6 +38,15 @@ cp $CURDIR/edit-for-apparmor.sh archzfs/
 cp $CURDIR/add-rename-patch.patch archzfs/
 cp $CURDIR/change-kernel-deps-ver.sh archzfs/
 cd archzfs/
+echo "Updating versions..."
+NEW_VER=`pacman -Q linux | cut -d' ' -f2 | cut -f1 -d- `
+NEW_REL=`pacman -Q linux | cut -d' ' -f2 | cut -f2 -d- `
+sed -i 's/^AZB_KERNEL_ARCHISO_VERSION=.*$/AZB_KERNEL_ARCHISO_VERSION="'$NEW_VER'"/' conf.sh
+sed -i 's/^AZB_KERNEL_ARCHISO_X32_PKGREL=.*$/AZB_KERNEL_ARCHISO_x32_PKGREL="'$NEW_REL'"/' conf.sh
+sed -i 's/^AZB_KERNEL_ARCHISO_X64_PKGREL=.*$/AZB_KERNEL_ARCHISO_x64_PKGREL="'$NEW_REL'"/' conf.sh
+sed -i 's/^AZB_BUILD=0/AZB_BUILD=1/' build.sh
+./build.sh git update
+echo "done"
 patch -Np1 -i apparmor.patch
 ./edit-for-apparmor.sh 
 ./change-kernel-deps-ver.sh
