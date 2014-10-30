@@ -40,9 +40,9 @@ cd archzfs/
 echo "Updating versions..."
 NEW_VER=`pacman -Q linux | cut -d' ' -f2 | cut -f1 -d- `
 NEW_REL=`pacman -Q linux | cut -d' ' -f2 | cut -f2 -d- `
-sed -i 's/^AZB_KERNEL_ARCHISO_VERSION=.*$/AZB_KERNEL_ARCHISO_VERSION="'$NEW_VER'"/' conf.sh
-sed -i 's/^AZB_KERNEL_ARCHISO_X32_PKGREL=.*$/AZB_KERNEL_ARCHISO_x32_PKGREL="'$NEW_REL'"/' conf.sh
-sed -i 's/^AZB_KERNEL_ARCHISO_X64_PKGREL=.*$/AZB_KERNEL_ARCHISO_x64_PKGREL="'$NEW_REL'"/' conf.sh
+sed -i 's/^AZB_GIT_KERNEL_VERSION=.*$/AZB_GIT_KERNEL_VERSION="'$NEW_VER'"/' conf.sh
+sed -i 's/^AZB_GIT_KERNEL_X32_PKGREL=.*$/AZB_GIT_KERNEL_x32_PKGREL="'$NEW_REL'"/' conf.sh
+sed -i 's/^AZB_GIT_KERNEL_X64_PKGREL=.*$/AZB_GIT_KERNEL_x64_PKGREL="'$NEW_REL'"/' conf.sh
 sed -i 's/^AZB_BUILD=0/AZB_BUILD=1/' build.sh
 ./build.sh git update
 echo "done"
