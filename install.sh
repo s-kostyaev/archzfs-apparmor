@@ -35,7 +35,6 @@ echo "done"
 echo "Patching archzfs for apparmor..."
 cp $CURDIR/apparmor.patch archzfs/
 cp $CURDIR/edit-for-apparmor.sh archzfs/
-cp $CURDIR/add-rename-patch.patch archzfs/
 cp $CURDIR/change-kernel-deps-ver.sh archzfs/
 cd archzfs/
 echo "Updating versions..."
@@ -50,7 +49,6 @@ echo "done"
 patch -Np1 -i apparmor.patch
 ./edit-for-apparmor.sh 
 ./change-kernel-deps-ver.sh
-patch -Np1 -i add-rename-patch.patch
 echo "done"
 cd spl-utils-git
 echo "Creating spl-utils-git package..."
