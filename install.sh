@@ -15,6 +15,7 @@ else
  cd $1
 fi
 echo "Updating linux package..."
+pacman -Syy
 pacman -S linux --noconfirm
 echo "done"
 echo "Clonning kernel repo..."
