@@ -35,6 +35,7 @@ git clone https://github.com/demizer/archzfs.git
 echo "done"
 echo "Patching archzfs for apparmor..."
 cp $CURDIR/apparmor.patch archzfs/
+cp $CURDIR/zfs-debug.patch archzfs/
 cp $CURDIR/edit-for-apparmor.sh archzfs/
 cp $CURDIR/change-kernel-deps-ver.sh archzfs/
 cd archzfs/
@@ -48,6 +49,7 @@ sed -i 's/^AZB_BUILD=0/AZB_BUILD=1/' build.sh
 ./build.sh git update
 echo "done"
 patch -Np1 -i apparmor.patch
+patch -Np1 -i zfs-debug.patch
 ./edit-for-apparmor.sh 
 ./change-kernel-deps-ver.sh
 echo "done"
