@@ -31,7 +31,7 @@ pacman -Ud linux-apparmor-headers-*-x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../..
 echo "Clonning zfs repo..."
-git clone https://github.com/demizer/archzfs.git
+git clone https://github.com/archzfs/archzfs.git
 echo "done"
 echo "Patching archzfs for apparmor..."
 cp $CURDIR/apparmor.patch archzfs/
