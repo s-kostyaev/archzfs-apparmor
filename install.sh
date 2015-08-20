@@ -19,11 +19,11 @@ pacman -Syy
 pacman -S linux --noconfirm
 echo "done"
 echo "Clonning kernel repo..."
-git clone https://github.com/seletskiy/arch-apparmor.git
+su builder -c 'git clone https://github.com/seletskiy/arch-apparmor.git'
 echo "done"
 cd arch-apparmor/linux-apparmor
 echo "Creating kernel package..."
-makepkg --skipinteg --asroot -s 
+su builder -c 'makepkg --skipinteg -s'
 echo "done"
 echo "Installing kernel..."
 pacman -Ud linux-apparmor-*-x86_64.pkg.tar.xz --noconfirm
@@ -31,12 +31,13 @@ pacman -Ud linux-apparmor-headers-*-x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../..
 echo "Clonning zfs repo..."
-git clone https://github.com/archzfs/archzfs.git
+git clone https://github.com/archzfs/archzfs.git --recursive 
 echo "done"
 echo "Patching archzfs for apparmor..."
 cp $CURDIR/apparmor.patch archzfs/
 cp $CURDIR/edit-for-apparmor.sh archzfs/
 cp $CURDIR/change-kernel-deps-ver.sh archzfs/
+chown -R builder archzfs
 cd archzfs/
 echo "Updating versions..."
 NEW_VER=`pacman -Q linux | cut -d' ' -f2 | cut -f1 -d- `
@@ -53,28 +54,28 @@ patch -Np1 -i apparmor.patch
 echo "done"
 cd spl-utils-git
 echo "Creating spl-utils-git package..."
-makepkg --asroot -s
+su builder -c 'makepkg -s'
 echo "done"
 echo "Installing zfs-utils-git package..."
 pacman -U spl-utils-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../spl-git
 echo "Creating spl-git package..."
-makepkg --asroot -s
+su builder -c 'makepkg -s'
 echo "done"
 echo "Installing spl-git..."
 pacman -U spl-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../zfs-utils-git
 echo "Creating zfs-utils-git package..."
-makepkg --asroot -s
+su builder -c 'makepkg -s'
 echo "done"
 echo "Installing zfs-utils-git package..."
 pacman -U zfs-utils-git-*x86_64.pkg.tar.xz --noconfirm
 echo "done"
 cd ../zfs-git
 echo "Creating zfs-git package..."
-makepkg --asroot -s
+su builder -c 'makepkg -s'
 echo "done"
 echo "Installing zfs-git..."
 pacman -U zfs-git-*x86_64.pkg.tar.xz --noconfirm
